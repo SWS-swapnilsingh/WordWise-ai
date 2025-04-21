@@ -169,7 +169,7 @@ def get_enhanced_meaning(word):
 
 def main():
     with col2:
-        st.title("✨ Word Meaning Explorer ✨")
+        st.title("✨ Go Beyond Word Meaning ✨")
         
         st.write("This is designed to help users learn English words in a comprehensive, engaging, and easy-to-understand format. It provides most common meaning of that word, example sentences, pronunciation guides, verb forms, and common phrases along with usage rating for any English word requested.")
 
