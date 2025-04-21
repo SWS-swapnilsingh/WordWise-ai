@@ -87,6 +87,14 @@ To *abstract* means to take away or remove something.
 
 ---
 
+### 🐦‍🔥 Past, Present and Future Sentences:
+
+1. *<Past tense sentence example goes here>*  
+2. *<Present tense sentence example goes here>*
+3. *<Future tense sentence example goes here>*  
+
+---
+
 ### 📌 Common Phrases with “Abstract”:
 
 #### 1. **Abstract concept**
