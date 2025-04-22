@@ -118,7 +118,7 @@ def pronunciation_section():
         load2 = st.info(f"Loading pronunciation...")
         st.write(get_pronunciation(word))
         pronounce_word(word)
-        load2.info(f"Pronunciation for: **{word}**")
+        load2.info(f"Pronunciation for: {word}")
 
 
 @st.fragment
