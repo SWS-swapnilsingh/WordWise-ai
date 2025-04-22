@@ -1,6 +1,10 @@
 import streamlit as st
 from google import genai
 import os
+from format import format_str
+from speech import pronounce_word
+from gtts import gTTS
+from io import BytesIO
 
 # Configure the Gemini API with your API key from environment variable
 
@@ -13,120 +17,35 @@ if not api_key:
 
 client = genai.Client(api_key=api_key)
 
+
 st.set_page_config(layout="wide")
-col1, col2, col3 = st.columns([1, 3, 1])
+# col1, col2, col3 = st.columns([1, 3, 1], gap="medium")
 
-format_str = """
+# Check if screen is small (add this near the top of your script)
+st.markdown("""
+    <script>
+    if (window.innerWidth < 768) {
+        window.parent.postMessage({
+            type: 'streamlit:setComponentValue',
+            value: true,
+            key: 'mobile_view'
+        }, '*');
+    }
+    </script>
+    """, unsafe_allow_html=True)
 
----
-
-### 🧠 Word: *<word goes here>*
-
----
-
-### ✅ Most Common Usage & Meaning:
-
-#### As an Adjective:
-*Abstract* means not concrete or physical; existing in thought or as an idea.  
-📘 *Example:* *Love and freedom are abstract concepts.*
-
-#### As a Noun:
-An *abstract* is a short summary of a larger text, like a research paper.  
-📘 *Example:* *The abstract gives a brief overview of the article.*
-
-#### As a Verb (less common):
-To *abstract* means to take away or remove something.  
-📘 *Example:* *He abstracted the data from the report.*
-
----
-
-### 📢 Pronunciation (US English):
-
-- **As a noun/adjective:** pronunciation goes here
-- **As a verb:** pronunciation goes here
-
----
-
-### 🌱 Part of Speech:
-
-- Adjective  
-- Noun  
-- Verb
-
----
-
-### 📘 First, Second, and Third Forms (Verb):
-
-- **Base (V1):** abstract  
-- **Past Simple (V2):** abstracted  
-- **Past Participle (V3):** abstracted
-
----
-
-### ✨ Other Forms of Speech:
-
-- **Noun:** *abstraction* 👉 *Mathematics often deals in abstraction.*  
-- **Adjective:** *abstract* 👉 *She gave an abstract explanation.*  
-- **Verb:** *to abstract* 👉 *They abstracted the key ideas.*  
-- **Adverb:** *abstractly* 👉 *He spoke abstractly about life.*
-
----
-
-### ✏️ Example Sentences:
-
-#### As Adjective:
-1. *Justice is an abstract concept.*  
-2. *He struggled with the abstract ideas in the lecture.*
-
-#### As Noun:
-3. *I read the abstract of the journal article before the full paper.*  
-4. *The abstract was too vague to understand the full research.*
-
-#### As Verb:
-5. *He abstracted the key points from the book.*
-
----
-
-### 🐦‍🔥 Past, Present and Future Sentences:
-
-1. *<Past tense sentence example goes here>*  
-2. *<Present tense sentence example goes here>*
-3. *<Future tense sentence example goes here>*  
-
----
-
-### 📌 Common Phrases with “Abstract”:
-
-#### 1. **Abstract concept**
-- **Meaning:** An idea that doesn’t have a physical form.  \n
-- **Example:** Justice and equality are abstract concepts that vary across cultures.  \n
-- **Usage Rating:** ⭐⭐⭐⭐⭐ (5/5)  
-- **Common In:** *Philosophy / Education / Psychology*
-
-#### 2. **Abstract art**
-- **Meaning:** A style of art that doesn’t show realistic objects, focusing instead on shapes, colors, and forms.  
-- **Example:** The museum’s new exhibit features abstract art that challenges traditional perceptions of beauty. 
-- **Usage Rating:** ⭐⭐⭐⭐⭐ (5/5)  
-- **Common In:** *Fine Arts / Design / Museums*
-
-#### 3. **Research abstract**
-- **Meaning:** A short summary of a research paper.  
-- **Example:** Before diving into the full paper, she carefully read the research abstract to grasp the key findings.
-- **Usage Rating:** ⭐⭐⭐⭐ (4/5)  
-- **Common In:** *Academia / Science / Research*
-
-#### 4. **Abstract thinking**
-- **Meaning:** The ability to think about things that are not physically present.  
-- **Example:** Children develop the ability for abstract thinking as they grow, enabling them to solve complex problems.
-- **Usage Rating:** ⭐⭐⭐⭐ (4/5)  
-- **Common In:** *Psychology / Education / Cognitive Science*
-
----
-
-     """
+# Initialize session state for mobile view
+if 'mobile_view' not in st.session_state:
+    st.session_state.mobile_view = False
 
 
+# Adjust column ratios for better responsiveness
+if st.session_state.get('mobile_view', False):
+    col1, col2 = st.columns([1, 1])
+else:
+    col1, col2, col3 = st.columns([1, 3, 1], gap="medium")
 
+format_str = format_str
 
 def get_enhanced_meaning(word):
     """Queries the Gemini API for enhanced word meaning."""
@@ -155,8 +74,9 @@ def get_enhanced_meaning(word):
 
             word: {word}
             """
+    
+
     try:
-        # response = model.generate_content(prompt)
         response = client.models.generate_content(
                             model='gemini-2.0-flash',
                             contents=prompt
@@ -166,26 +86,172 @@ def get_enhanced_meaning(word):
         return f"Error fetching information: {e}"
 
 
+# with col1:
+#     st.write("#### Pronunciation")
+#     st.write("country: US")
+#     # st.write("Tcomprehensive, engaging, and easy-to-understand format. It provides most common meaning of that word, example sentences, pronunciation guides, verb forms, and common phrases along with usage rating for any English word requested.")
+#     word = st.text_input("Enter word:", key="pronunciation_word")
+#     pronounce_word(word)
+
+
+def get_pronunciation(word):
+    """Fetches the pronunciation of a word."""
+    prompt = f"""Simple pronunciation in US English for word={word}. Tell which part to stress and a similar pronunciation word."""
+    try:
+        response = client.models.generate_content(
+                            model='gemini-2.0-flash',
+                            contents=prompt
+                        )
+        return response.text
+    except Exception as e:
+        return f"Error fetching information: {e}"
+    
+
+@st.fragment
+def pronunciation_section():
+    st.write("#### Pronunciation")
+    st.write("country: US")
+    word = st.text_input("Enter word:", key="pronunciation_word")
+    st.write("**Note:** Downloading audio is available.")
+
+    if word:
+        load2 = st.info(f"Loading pronunciation...")
+        st.write(get_pronunciation(word))
+        pronounce_word(word)
+        load2.info(f"Pronunciation for: **{word}**")
+
+
+@st.fragment
+def meaning_section():
+    st.title("✨ Go Beyond Word Meaning ✨")
+    st.write("This is designed to help users learn English words in a comprehensive, engaging, and easy-to-understand format. It provides most common meaning of that word, example sentences, pronunciation guides, verb forms, and common phrases along with usage rating for any English word requested.")
+    word_to_lookup = st.text_input("Enter a word:", key="lookup_word")
+    
+    if word_to_lookup:
+        a = st.info(f"Searching for: **{word_to_lookup}**...")
+        gemini_output = get_enhanced_meaning(word_to_lookup)
+        
+        if gemini_output.startswith("Error"):
+            st.error(gemini_output)
+        else:
+            a.info(f"Result for: **{word_to_lookup}**")
+            # st.markdown(gemini_output)
+
+            # Split the output at the pronunciation section
+            parts = gemini_output.split("### 📢 Pronunciation (US English):")
+
+            if len(parts) == 2:
+                st.markdown(parts[0] + "### 📢 Pronunciation (US English):")
+                # Insert pronunciation button here
+
+                tts = gTTS(text=word_to_lookup, lang='en', tld='com')  # US accent
+                mp3_fp1 = BytesIO()
+                tts.write_to_fp(mp3_fp1)
+                mp3_fp1.seek(0)
+                st.audio(mp3_fp1, format="audio/mp3")
+                # Inject custom CSS to control the audio player's width
+                st.markdown("""
+                    <style>
+                    audio {
+                        width: 120px !important;  /* Set your desired width */
+                        min-width: 70px !important;
+                        max-width: 350px !important;
+                    }
+                    </style>
+                    """, unsafe_allow_html=True)
+
+                # st.markdown('<div id="audio1-container">', unsafe_allow_html=True)
+                # st.audio(mp3_fp1, format="audio/mp3", autoplay=False)
+                # st.markdown('</div>', unsafe_allow_html=True)
+                # st.markdown("""
+                #     <style>
+                #     #audio1-container audio {
+                #         width: 220px !important;
+                #         min-width: 120px !important;
+                #         max-width: 250px !important;
+                #         /* Any other custom styles */
+                #     }
+                #     </style>
+                #     """, unsafe_allow_html=True)
+
+
+                st.markdown(parts[1])
+            else:
+                st.markdown(gemini_output)
+
+            # if st.button("🔊"):
+            # tts = gTTS(text=word_to_lookup, lang='en', tld='com')  # 'com' gives US accent
+            # tts.save("pronounce.mp3")
+            # audio_file = open("pronounce.mp3", "rb")
+            # st.audio(audio_file.read(), format="audio/mp3")
+
+
+
+with col1:
+    # pronunciation_section()
+    audio_container = st.container()
+    with audio_container:
+        st.markdown('<div style="max-width:100%; overflow:hidden;">', unsafe_allow_html=True)
+        pronunciation_section()
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+
+
 
 def main():
+    # with col2:
+    #     st.title("✨ Word Meaning Explorer ✨")
+        
+    #     st.write("This is designed to help users learn English words in a comprehensive, engaging, and easy-to-understand format. It provides most common meaning of that word, example sentences, pronunciation guides, verb forms, and common phrases along with usage rating for any English word requested.")
+        
+    #     word_to_lookup = st.text_input("Enter a word:", key="lookup_word")
+        
+
+    #     if word_to_lookup:
+    #         a = st.info(f"Searching for: **{word_to_lookup}**...")
+    #         gemini_output = get_enhanced_meaning(word_to_lookup)
+
+    #         if gemini_output.startswith("Error"):
+    #             st.error(gemini_output)
+    #         else:
+    #             a.info(f"Result for: **{word_to_lookup}**")
+    #             st.markdown(gemini_output)
+
+    
     with col2:
-        st.title("✨ Go Beyond Word Meaning ✨")
-        
-        st.write("This is designed to help users learn English words in a comprehensive, engaging, and easy-to-understand format. It provides most common meaning of that word, example sentences, pronunciation guides, verb forms, and common phrases along with usage rating for any English word requested.")
+        meaning_section()
 
-        word_to_lookup = st.text_input("Enter a word:")
-        
-
-        if word_to_lookup:
-            a = st.info(f"Searching for: **{word_to_lookup}**...")
-            gemini_output = get_enhanced_meaning(word_to_lookup)
-
-            if gemini_output.startswith("Error"):
-                st.error(gemini_output)
-            else:
-                a.info(f"Result for: **{word_to_lookup}**")
-                st.markdown(gemini_output)
 
 
 if __name__ == "__main__":
     main()
+
+
+
+footer_html = """
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #222;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    z-index: 100;
+}
+.footer a {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+}
+</style>
+<div class="footer">
+    <span>Created with ♥️ by Swapnil Singh</span>
+    <a href="https://www.linkedin.com/in/swapnil-singh-b995a9184/" target="_blank"><i class="fab fa-linkedin"></i></a>
+</div>
+"""
+
+st.markdown(footer_html, unsafe_allow_html=True)
