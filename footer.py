@@ -19,7 +19,7 @@ footer_html = """
 }
 </style>
 <div class="footer">
-    <span>Created with ♥️ by Swapnil Singh</span>
-    <a href="https://www.linkedin.com/in/swapnil-singh-b995a9184/" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <span>♥️ Post Your Reviews Here</span>
+    <a href="https://mail.google.com/mail/?view=cm&to=academicsme341%2Bapp@gmail.com&su=App%20Review" target="_blank"><i class="fa-solid fa-envelope"></i></a>
 </div>
 """
