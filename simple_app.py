@@ -57,6 +57,18 @@ client = genai.Client(api_key=api_key)
 st.set_page_config(layout="wide")
 
 
+hide_st_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+"""
+
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
+
+
 # Checks if screen is small (should be added near the top of your script)
 # Inject a custom JavaScript snippet into the Streamlit app using st.markdown.
 # The 'unsafe_allow_html=True' parameter allows raw HTML/JS to be rendered.
