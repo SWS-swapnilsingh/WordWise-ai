@@ -331,9 +331,6 @@ def meaning_section():
                 # If the output doesn't have a separate pronunciation section,
                 # display the entire output as markdown.
                 st.markdown(gemini_output)
-    else:
-        # If no word is entered, show a message indicating that the user should enter a word.
-        st.info("Please enter a word to get its meaning.")
 
 
 # Places all Streamlit given elements inside the first column (col1).
