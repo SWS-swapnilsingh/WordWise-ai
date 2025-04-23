@@ -1,4 +1,4 @@
-## Go Beyond Word Meanings – Streamlit App
+## ✨ Go Beyond Word Meanings ✨ – Streamlit App
 
 A modern, interactive Streamlit web app that helps users learn English words in a comprehensive, engaging, and easy-to-understand format. Powered by Google's Gemini API and Google Text-to-Speech (gTTS), this app provides simple definitions, usage examples, pronunciation guides (with audio), verb forms, etymology, and much more for any English word.
 
@@ -96,36 +96,8 @@ A modern, interactive Streamlit web app that helps users learn English words in 
 
 ---
 
-### Example Screenshots
-
-> _Add screenshots of the app running on desktop and mobile for better visibility._
-
----
-
 ### Contributing
 
 Pull requests and suggestions are welcome! Please open an issue or submit a PR for improvements.
 
 ---
-
-### License
-
-MIT License. See [LICENSE](LICENSE) for details.
-
----
-
-### Acknowledgements
-
-- [Streamlit](https://streamlit.io/)
-- [Google Gemini](https://ai.google.dev/)
-- [gTTS](https://gtts.readthedocs.io/)
-
----
-
-**Start learning English words the smart way!**
-
-Citations:
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/51913045/22600f20-63cd-45af-8bec-653b6e36b908/paste.txt
-
----
-Answer from Perplexity: pplx.ai/share
