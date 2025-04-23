@@ -281,7 +281,7 @@ def meaning_section():
     if word_to_lookup:
 
         # Displays an info message indicating that the search is in progress.
-        a = st.info(f"Searching for: **{word_to_lookup}**...")
+        a = st.info(f"Searching for: {word_to_lookup}...")
 
         # Queries the Gemini API (or your backend function) for the enhanced meaning of the word.
         gemini_output = get_enhanced_meaning(word_to_lookup)
@@ -292,7 +292,7 @@ def meaning_section():
         else:
 
             # Update the info message to indicate that the result is ready.
-            a.info(f"Result for: **{word_to_lookup}**")
+            a.info(f"Result for: {word_to_lookup}")
 
             # Splits the output at the pronunciation section
             parts = gemini_output.split("### 📢 Pronunciation (US English):")
