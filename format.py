@@ -9,15 +9,15 @@ format_str = """
 ### ✅ Most Common Usage & Meaning:
 
 #### As an Adjective:
-*Abstract* means not concrete or physical; existing in thought or as an idea.  
+*Abstract* means not concrete or physical; existing in thought or as an idea.\n  
 📘 *Example:* *Love and freedom are abstract concepts.*
 
 #### As a Noun:
-An *abstract* is a short summary of a larger text, like a research paper.  
+An *abstract* is a short summary of a larger text, like a research paper.\n  
 📘 *Example:* *The abstract gives a brief overview of the article.*
 
 #### As a Verb (less common):
-To *abstract* means to take away or remove something.  
+To *abstract* means to take away or remove something.\n  
 📘 *Example:* *He abstracted the data from the report.*
 
 ---
@@ -80,27 +80,27 @@ To *abstract* means to take away or remove something.
 ### 📌 Common Phrases with “Abstract”:
 
 #### 1. **Abstract concept**
-- **Meaning:** An idea that doesn’t have a physical form.  \n
-- **Example:** Justice and equality are abstract concepts that vary across cultures.  \n
-- **Usage Rating:** ⭐⭐⭐⭐⭐ (5/5)  
+- **Meaning:** An idea that doesn’t have a physical form.\n
+- **Example:** Justice and equality are abstract concepts that vary across cultures.\n
+- **Usage Rating:** ⭐⭐⭐⭐⭐ (5/5)\n
 - **Common In:** *Philosophy / Education / Psychology*
 
 #### 2. **Abstract art**
-- **Meaning:** A style of art that doesn’t show realistic objects, focusing instead on shapes, colors, and forms.  
-- **Example:** The museum’s new exhibit features abstract art that challenges traditional perceptions of beauty. 
-- **Usage Rating:** ⭐⭐⭐⭐⭐ (5/5)  
+- **Meaning:** A style of art that doesn’t show realistic objects, focusing instead on shapes, colors, and forms.\n
+- **Example:** The museum’s new exhibit features abstract art that challenges traditional perceptions of beauty.\n
+- **Usage Rating:** ⭐⭐⭐⭐⭐ (5/5)\n
 - **Common In:** *Fine Arts / Design / Museums*
 
 #### 3. **Research abstract**
-- **Meaning:** A short summary of a research paper.  
-- **Example:** Before diving into the full paper, she carefully read the research abstract to grasp the key findings.
-- **Usage Rating:** ⭐⭐⭐⭐ (4/5)  
+- **Meaning:** A short summary of a research paper.\n
+- **Example:** Before diving into the full paper, she carefully read the research abstract to grasp the key findings.\n
+- **Usage Rating:** ⭐⭐⭐⭐ (4/5)\n
 - **Common In:** *Academia / Science / Research*
 
 #### 4. **Abstract thinking**
-- **Meaning:** The ability to think about things that are not physically present.  
-- **Example:** Children develop the ability for abstract thinking as they grow, enabling them to solve complex problems.
-- **Usage Rating:** ⭐⭐⭐⭐ (4/5)  
+- **Meaning:** The ability to think about things that are not physically present.\n
+- **Example:** Children develop the ability for abstract thinking as they grow, enabling them to solve complex problems.\n
+- **Usage Rating:** ⭐⭐⭐⭐ (4/5)\n
 - **Common In:** *Psychology / Education / Cognitive Science*
 
 ---
