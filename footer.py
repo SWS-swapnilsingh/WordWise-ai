@@ -19,6 +19,6 @@ footer_html = """
 }
 </style>
 <div class="footer">
-    <a href="https://mail.google.com/mail/?view=cm&to=academicsme341%2Bapp@gmail.com&su=App%20Review" target="_blank"><span>♥️ Post Your Reviews Here &nbsp;&nbsp;</span><i class="fa-solid fa-envelope"></i></a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSds_mRQL5smxzz_pWjXfumSRHBqiDuj7GOq_0hIDdsacHWlZg/viewform" target="_blank"><span>♥️ Post Your Reviews Here </span>📜</a> 
 </div>
 """
