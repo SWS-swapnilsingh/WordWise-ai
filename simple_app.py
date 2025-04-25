@@ -62,6 +62,7 @@ hide_st_style = """
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
+    .embeddedAppMetaInfoBar_container__DxxL1 {visibility: hidden;}
     </style>
 """
 
